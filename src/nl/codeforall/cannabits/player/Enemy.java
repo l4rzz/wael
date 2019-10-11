@@ -1,4 +1,4 @@
 package nl.codeforall.cannabits.player;
 
-public class EnemyPlayer extends Character {
+public class Enemy extends Character {
 }

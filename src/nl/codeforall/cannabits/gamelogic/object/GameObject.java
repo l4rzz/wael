@@ -7,7 +7,7 @@ public abstract class GameObject {
     private Cell position;
     private Grid grid;
 
-    public void setStarPosition(Grid grid){
+    public void setStartPosition(Grid grid){
         this.grid = grid;
         int maxCols = grid.getCols() -1;
         int maxRows = grid.getRows() -1;

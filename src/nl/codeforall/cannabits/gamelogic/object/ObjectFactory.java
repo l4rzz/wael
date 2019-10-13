@@ -6,5 +6,19 @@ public class ObjectFactory {
 
     //switch(objectType)
 
+    public static GameObject createObject(GameObjectType gameObjectType){
+
+        switch (gameObjectType){
+            case PLAYER:
+                return new Player();
+            case ENEMY:
+                return new Enemy();
+            case WALL:
+                return new Wall();
+
+        }
+        return null;
+    }
+
 
 }

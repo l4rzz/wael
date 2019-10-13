@@ -1,6 +1,7 @@
 package nl.codeforall.cannabits.gamelogic.object;
 
 import nl.codeforall.cannabits.gamelogic.Direction;
+import nl.codeforall.cannabits.gamelogic.Grid;
 import nl.codeforall.cannabits.gamelogic.Moveable;
 
 public abstract class Character extends GameObject implements Moveable {
@@ -10,11 +11,29 @@ public abstract class Character extends GameObject implements Moveable {
 
     @Override
     public boolean isDirectionPossible(Direction direction) {
-        return false;
+        int totalColumns = getGrid().getCols() -1;
+        int totalRows = getGrid().getRows() -1;
+        int currentCol = getCell().getCol();
+        int currentRow = getCell().getRow();
+
+        switch (direction){
+            case UP:
+                return currentRow <= totalRows;
+            case DOWN:
+                return currentRow >= totalRows;
+            case LEFT:
+                return currentCol <= totalColumns;
+            case RIGHT:
+                return currentCol >= totalColumns;
+        }
+        return true;
     }
 
     protected void changeDirection(Direction direction){
         this.direction = direction;
     }
 
+    public boolean isDead(){
+        return dead;
+    }
 }

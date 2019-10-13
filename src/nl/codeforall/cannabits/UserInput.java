@@ -1,4 +1,8 @@
 package nl.codeforall.cannabits;
 
-public class Input {
+public class UserInput {
+
+
+
+
 }

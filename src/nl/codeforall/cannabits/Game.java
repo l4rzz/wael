@@ -4,10 +4,9 @@ import nl.codeforall.cannabits.gamelogic.object.Player;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 
 public class Game {
-    private Player.Field field;
     private Keyboard keyboard;
 
-    public Game(Player.Field field){
+    public Game(){
         //create keyboard+ input
         //assign a field
     }

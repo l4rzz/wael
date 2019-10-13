@@ -8,7 +8,6 @@ import nl.codeforall.cannabits.gamelogic.object.Player;
 public class Screen {
     private int x;      //width field
     private int y;      //length field
-    private Player.Field field;
 
     public void show() {
         //draw

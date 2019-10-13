@@ -2,6 +2,6 @@ package nl.codeforall.cannabits.gamelogic.object;
 
 import nl.codeforall.cannabits.gamelogic.Cell;
 
-public class Object {
+public abstract class GameObject {
     private Cell position;
 }

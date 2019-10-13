@@ -1,6 +1,6 @@
 package nl.codeforall.cannabits.gamelogic;
 
 public interface Moveable {
-
-    void move();
+    boolean isDirectionPossible(Direction direction);
+    void move(Direction direction);
 }

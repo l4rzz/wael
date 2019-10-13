@@ -9,9 +9,9 @@ public class Enemy extends Character {
     public void moveToWard(Cell cell) {
 
         // compare columns
-        int colDifference = cell.getCol() - getCell().getCol();
+        int colDifference = cell.getCols() - getCell().getCols();
         // compare rows
-        int rowDifference = cell.getRow() - getCell().getRow();
+        int rowDifference = cell.getRows() - getCell().getRows();
 
         // test first, can be cleaned up later
         // get highest value

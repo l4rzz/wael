@@ -19,11 +19,11 @@ public class Cell {
         this.availableCell = availableCell;
     }
 
-    private int getCols() {
+    public int getCols() {
         return this.col;
     }
 
-    private int getRows() {
+    public int getRows() {
         return this.row;
     }
 

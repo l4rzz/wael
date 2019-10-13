@@ -1,12 +1,11 @@
 package nl.codeforall.cannabits.visuals;
 
 
+import java.awt.*;
 
 public class Sprite {
     //position in pixels that can move:
     // representation logic
-
-
 
     //property 1 Player1 sprite
     //property 2 Enemy sprite

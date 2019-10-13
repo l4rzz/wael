@@ -15,7 +15,7 @@ public abstract class GameObject {
         int setRow = (int)Math.floor(Math.random()*maxRows);
 
         if(grid.isOccupied(setCol, setRow)){
-            setStarPosition(grid);
+            setStartPosition(grid);
         }
 
     }

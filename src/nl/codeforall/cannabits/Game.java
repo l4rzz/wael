@@ -9,8 +9,8 @@ public class Game {
     // variable where the latest user input can be read.
     public UserInput userinput;
     private Grid grid;
-    private GameObject player;
-    private GameObject enemy;
+    private Player player;
+    private Enemy enemy;
     private Screen screen;
 
     public Game(){
@@ -18,22 +18,22 @@ public class Game {
         grid = new Grid(8,8);
 
         // TODO Unlocken connection to gameobject
-        // player = (Player) ObjectFactory.createObject(GameObjectType.PLAYER);
-        // enemy = (Enemy) ObjectFactory.createObject(GameObjectType.ENEMY);
+        player = (Player) ObjectFactory.createObject(GameObjectType.PLAYER);
+        enemy = (Enemy) ObjectFactory.createObject(GameObjectType.ENEMY);
 
         // TODO Unlocken setting of start positions
-        // player.setStartPosition(grid);
-        // enemy.setStartPosition(grid);
+        player.setStartPosition(grid);
+        enemy.setStartPosition(grid);
 
         // TODO Unlocken initialising screen
-        // screen = new Screen(grid);
+        screen = new Screen(grid);
 
     }
 
     public void start(){
 
         // loop till player or enemy is dead
-        //while (!enemy.isDead() && !player.isDead()){
+        while (!enemy.isDead() && !player.isDead()){
 
             // Player turn
 
@@ -51,6 +51,6 @@ public class Game {
 
         }
 
-    // } // end of while
+    } // end of while
 
 }

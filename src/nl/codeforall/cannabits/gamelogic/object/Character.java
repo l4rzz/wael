@@ -13,8 +13,8 @@ public abstract class Character extends GameObject implements Moveable {
     public boolean isDirectionPossible(Direction direction) {
         int totalColumns = getGrid().getCols() -1;
         int totalRows = getGrid().getRows() -1;
-        int currentCol = getCell().getCol();
-        int currentRow = getCell().getRow();
+        int currentCol = getCell().getCols();
+        int currentRow = getCell().getRows();
 
         switch (direction){
             case UP:

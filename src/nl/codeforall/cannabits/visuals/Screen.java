@@ -26,10 +26,6 @@ public class Screen {
     }
 
     //start screen
-    public void init() {
-
-    }
-
 
     public void show() {
         field.draw();
@@ -44,6 +40,10 @@ public class Screen {
         //cellsize
     }
 
+    public int getPadding(){
+        return PADDING;
+    }
+
     public int getLength() {
         return length;
     }
@@ -51,4 +51,13 @@ public class Screen {
     public Grid getGrid() {
         return grid;
     }
+
+    public int rowToY(int row) {
+        return PADDING + CELLENGTH * row;
+    }
+
+    public int columnToX(int col) {
+        return PADDING + CELLENGTH * col;
+    }
+
 }

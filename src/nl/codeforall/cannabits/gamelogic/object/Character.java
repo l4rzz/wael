@@ -18,13 +18,13 @@ public abstract class Character extends GameObject implements Moveable {
 
         switch (direction){
             case UP:
-                return currentRow <= totalRows;
+                return currentRow >= 0;
             case DOWN:
-                return currentRow >= totalRows;
+                return currentRow <= totalRows;
             case LEFT:
-                return currentCol <= totalColumns;
+                return currentCol >= 0;
             case RIGHT:
-                return currentCol >= totalColumns;
+                return currentCol <= totalColumns;
         }
         return true;
     }

@@ -6,6 +6,7 @@ import nl.codeforall.cannabits.gamelogic.Grid;
 public abstract class GameObject {
     private Cell position;
     private Grid grid;
+    private Sprite sprite;
 
     public void setStarPosition(Grid grid){
         this.grid = grid;
@@ -30,5 +31,13 @@ public abstract class GameObject {
 
     public Grid getGrid(){
         return grid;
+    }
+
+    public void setSprite(Sprite sprite){
+        this.sprite = sprite;
+    }
+
+    public Sprite getSprite() {
+        return sprite;
     }
 }

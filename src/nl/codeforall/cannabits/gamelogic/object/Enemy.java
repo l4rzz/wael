@@ -19,17 +19,21 @@ public class Enemy extends Character {
         if(Math.abs(colDifference) > Math.abs(rowDifference)){
             if(colDifference <0){
                 //go right
+                changeDirection(Direction.RIGHT);
                 cell.moveRight();
             }else{
                 //go left
+                changeDirection(Direction.LEFT);
                 cell.moveRight();
             }
         }else{
             if(rowDifference <0){
+                changeDirection(Direction.DOWN);
                 //go down
                 cell.moveDown();
             }else{
                 //go up
+                changeDirection(Direction.UP);
                 cell.moveUp();
             }
         }

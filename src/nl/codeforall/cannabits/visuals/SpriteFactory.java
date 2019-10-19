@@ -9,13 +9,12 @@ import nl.codeforall.cannabits.visuals.characterVisuals.PlayerSprite;
 import nl.codeforall.cannabits.visuals.characterVisuals.WallSprite;
 
 public class SpriteFactory {
-
-    //TODO object needs a property for type + getter
+/*
     //TODO Game needs to give sprite a screen as argument.
 
-   /* public static void makeSprite(GameObject object, Screen screen){
+    public static void makeSprite(GameObject object, Screen screen){
 
-        GameObjectType objectType = object.getType();
+        GameObjectType objectType = object.getGameObjectType();
 
         switch (objectType) {
             case ENEMY:

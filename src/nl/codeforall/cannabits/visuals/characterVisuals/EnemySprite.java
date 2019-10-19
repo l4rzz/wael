@@ -8,7 +8,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class EnemySprite extends Sprite {
     private final static String pictureSource = "enemysprites/Zombie/leftstand.png";
-    private final static int delay = 400;
+    private final static int delay = 200;
     private Picture sprite;
 
     public EnemySprite(int col, int row, Screen screen, Direction direction){
@@ -16,8 +16,6 @@ public class EnemySprite extends Sprite {
         this.sprite = new Picture(getXcoordinate(),getYcoordinate(),pictureSource);
         show();
     }
-
-
 
     @Override
     public void show() {
@@ -29,7 +27,6 @@ public class EnemySprite extends Sprite {
         sprite.delete();
     }
 
-    @Override
     public void move(FieldDirection direction) throws InterruptedException {
         int travelDistance = getScreen().getCellsize();
         switch(direction){
@@ -49,6 +46,7 @@ public class EnemySprite extends Sprite {
         }
     }
 
+    //Move animations
     public void moveLeftAnimation(int travelDistance) throws InterruptedException {
         sprite.load("enemysprites/Zombie/leftwalk1.png");
         setFieldDirection(FieldDirection.LEFT);
@@ -93,12 +91,22 @@ public class EnemySprite extends Sprite {
         sprite.load("enemysprites/Zombie/downwalk2.png");
     }
 
+    @Override
+    public void deadAnimation() throws InterruptedException {
+        int explosionDelay = 50;
+
+        for(int i = 1; i < 7; i ++) {
+            sprite.load("explosion/explosion" + i + ".png");
+            Thread.sleep(explosionDelay);
+        }
+
+        sprite.delete();
+    }
 
 
     public int getHeight(){
        return sprite.getHeight();
     }
-
 
 }
 

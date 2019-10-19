@@ -75,9 +75,9 @@ public class Game {
             }
 
             // Checking if keystroke translates into possible move
-            if (!player.isDirectionPossible(desiredDirection)) {
+            //if (!player.isDirectionPossible(desiredDirection,)) {
                 // Screen.gameMessage("You are not allowed to move in this direction.");
-                continue; // should go back into while loop // TODO back to keyboard
+             //   continue; // should go back into while loop // TODO back to keyboard
 
             }
             // If so
@@ -127,7 +127,7 @@ public class Game {
         } // end of turns, loop ends if there is a winner
         // TODO Screen.gameMessage("Winner: " + winner);
 
-    }
+
 
 }
 

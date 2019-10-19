@@ -32,24 +32,23 @@ public abstract class Sprite<T> {
                 this.fieldDirection = FieldDirection.UP;
                 break;
         }
+
         this.screen = screen;
         this.xcoordinate = screen.columnToX(col);
         this.ycoordinate = screen.rowToY(row);
 
     }
 
-
-
-
     public abstract void show();
 
     public abstract void hide();
 
+    public abstract void deadAnimation() throws InterruptedException;
 
     //TODO showNewPostition(player);
     //get direction from player the draw towards direction.
     public void showNewPosition(GameCharacter character) {
-        character.
+
     }
 
 
@@ -90,5 +89,7 @@ public abstract class Sprite<T> {
     protected void setFieldDirection(FieldDirection direction){
         this.fieldDirection = direction;
     }
+
+
 
 }

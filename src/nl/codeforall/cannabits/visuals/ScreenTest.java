@@ -18,13 +18,9 @@ public class ScreenTest {
 
 
         enemy.move(FieldDirection.RIGHT);
-        Thread.sleep(1000);
         enemy.move(FieldDirection.DOWN);
-        Thread.sleep(1000);
         enemy.move(FieldDirection.DOWN);
-        Thread.sleep(1000);
         enemy.move(FieldDirection.DOWN);
-        Thread.sleep(1000);
 
 
     }

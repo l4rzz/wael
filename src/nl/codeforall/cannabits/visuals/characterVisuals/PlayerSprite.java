@@ -29,24 +29,28 @@ public class PlayerSprite extends Sprite{
     }
 
     @Override
-    public void move(FieldDirection direction) {
+    public void move(FieldDirection direction) throws InterruptedException {
         int travelDistance = getScreen().getCellsize();
         switch(direction){
 
             case UP:
                 setFieldDirection(FieldDirection.UP);
+                Thread.sleep(1000);
                 sprite.translate(0, -travelDistance);
                 break;
             case DOWN:
                 setFieldDirection(FieldDirection.DOWN);
+                Thread.sleep(1000);
                 sprite.translate(0, travelDistance);
                 break;
             case LEFT:
                 setFieldDirection(FieldDirection.LEFT);
+                Thread.sleep(1000);
                 sprite.translate(-travelDistance,0);
                 break;
             case RIGHT:
                 setFieldDirection(FieldDirection.RIGHT);
+                Thread.sleep(1000);
                 sprite.translate(travelDistance, 0);
                 break;
         }

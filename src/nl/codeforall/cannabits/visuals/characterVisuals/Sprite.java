@@ -11,8 +11,6 @@ public abstract class Sprite<T> {
     //position in pixels that can move:
     // representation logic
 
-    //property 1 Player1 sprite
-    //property 2 Enemy sprite
     private Screen screen;
     private FieldDirection fieldDirection;
     private int xcoordinate;

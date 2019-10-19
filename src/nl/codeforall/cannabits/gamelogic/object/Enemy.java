@@ -5,35 +5,60 @@ import nl.codeforall.cannabits.gamelogic.Direction;
 
 public class Enemy extends GameCharacter {
 
-    public void moveToWard(Cell cell) {
+    public Enemy(GameObjectType gameObjectType){
+        super(gameObjectType);
+    }
+
+    public void moveTowardWithWalls(Cell cell, Wall[] walls) {
+        /*
+         * Which direction can you go?
+         * Which directions get the enemy closer to the player
+         * if that direction is possible
+         *  go into that direction
+         * */
 
         // compare columns
         int colDifference = cell.getCols() - getCell().getCols();
         // compare rows
         int rowDifference = cell.getRows() - getCell().getRows();
 
-        // test first, can be cleaned up later
-        // get highest value
-        // move into that direction
-        if(Math.abs(colDifference) > Math.abs(rowDifference)){
-            if(colDifference <0){
+        boolean moved = false;
+        if (Math.abs(colDifference) > Math.abs(rowDifference)) {
+            if (colDifference < 0) {
                 //go right
-                cell.moveRight();
-            }else{
-                //go left
-                cell.moveRight();
+                if (isDirectionPossible(Direction.RIGHT, walls)) {
+                    changeDirection(Direction.RIGHT);
+                    cell.moveRight();
+                    return;
+                }
+                if (isDirectionPossible(Direction.LEFT, walls)) {
+                    changeDirection(Direction.LEFT);
+                    cell.moveLeft();
+                    return;
+                }
+
             }
-        }else{
-            if(rowDifference <0){
+            if (rowDifference < 0) {
                 //go down
-                cell.moveDown();
-            }else{
-                //go up
-                cell.moveUp();
+                if (isDirectionPossible(Direction.DOWN, walls)) {
+                    changeDirection(Direction.DOWN);
+                    cell.moveDown();
+                    return;
+                }
+
+                if (isDirectionPossible(Direction.UP, walls)) {
+                    changeDirection(Direction.UP);
+                    cell.moveUp();
+                    return;
+                }
             }
         }
+    }
 
 
+    @Override
+    public boolean isDirectionPossible(Direction direction, Wall[] walls) {
+        return false;
     }
 
     @Override
@@ -41,3 +66,4 @@ public class Enemy extends GameCharacter {
 
     }
 }
+

@@ -17,6 +17,8 @@ public class EnemySprite extends Sprite {
         show();
     }
 
+
+
     @Override
     public void show() {
         sprite.draw();

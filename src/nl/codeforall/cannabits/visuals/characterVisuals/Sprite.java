@@ -1,5 +1,6 @@
 package nl.codeforall.cannabits.visuals.characterVisuals;
 
+import nl.codeforall.cannabits.gamelogic.object.GameCharacter;
 import nl.codeforall.cannabits.visuals.FieldDirection;
 import nl.codeforall.cannabits.visuals.Screen;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
@@ -49,8 +50,8 @@ public abstract class Sprite<T> {
 
     //TODO showNewPostition(player);
     //get direction from player the draw towards direction.
-    public void showNewPosition(Character character) {
-
+    public void showNewPosition(GameCharacter character) {
+        character.
     }
 
 

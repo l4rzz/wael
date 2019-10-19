@@ -1,17 +1,21 @@
-package nl.codeforall.cannabits.visuals;
+package nl.codeforall.cannabits.visuals.characterVisuals;
 
+import nl.codeforall.cannabits.visuals.FieldDirection;
+import nl.codeforall.cannabits.visuals.Screen;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import nl.codeforall.cannabits.gamelogic.Direction;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-public class Sprite {
+public abstract class Sprite<T> {
     //position in pixels that can move:
     // representation logic
 
     //property 1 Player1 sprite
     //property 2 Enemy sprite
     private Screen screen;
-    private Rectangle spritePosition;
     private FieldDirection fieldDirection;
+    private int xcoordinate;
+    private int ycoordinate;
 
     public Sprite(int col, int row, Screen screen, Direction direction) {
 
@@ -30,54 +34,62 @@ public class Sprite {
                 break;
         }
         this.screen = screen;
-        int x = screen.columnToX(col);
-        int y = screen.rowToY(row);
-        this.spritePosition = new Rectangle(screen.getPadding(), screen.getPadding(), x, y);
+        this.xcoordinate = screen.columnToX(col);
+        this.ycoordinate = screen.rowToY(row);
 
-        show();
     }
 
 
 
 
-    public void show(){
-        this.spritePosition.fill();
-    }
-    public void hide(){
-        this.spritePosition.delete();
+    public abstract void show();
+
+    public abstract void hide();
+
+
+    //TODO showNewPostition(player);
+    //get direction from player the draw towards direction.
+    public void showNewPosition(Character character) {
+
     }
 
-    public void move(FieldDirection direction) {
+
+    public void move(FieldDirection direction) throws InterruptedException {
+        //TODO move
         int travelDistance = screen.getCellsize();
         switch(direction){
 
             case UP:
-                hide();
                 fieldDirection = FieldDirection.UP;
-                spritePosition.translate(0,-travelDistance);
-                show();
+                this.ycoordinate -= travelDistance;
                 break;
             case DOWN:
-                hide();
                 fieldDirection = FieldDirection.DOWN;
-                spritePosition.translate(0,travelDistance);
-                show();
+                this.ycoordinate += travelDistance;
                 break;
             case LEFT:
-                hide();
                 fieldDirection = FieldDirection.LEFT;
-                spritePosition.translate(-travelDistance, 0);
-                show();
+                this.xcoordinate -= travelDistance;
                 break;
             case RIGHT:
-                hide();
                 fieldDirection = FieldDirection.RIGHT;
-                spritePosition.translate(travelDistance, 0);
-                show();
+                this.xcoordinate += travelDistance;
                 break;
         }
 
 
+    }
+    protected Screen getScreen(){
+        return this.screen;
+    }
+    public int getXcoordinate(){
+        return xcoordinate;
+    }
+    protected int getYcoordinate(){
+        return ycoordinate;
+    }
+    protected void setFieldDirection(FieldDirection direction){
+        this.fieldDirection = direction;
     }
 
 }

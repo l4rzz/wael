@@ -6,26 +6,28 @@ package nl.codeforall.cannabits.visuals;
 import nl.codeforall.cannabits.gamelogic.object.Player;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import nl.codeforall.cannabits.gamelogic.Grid;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-import java.awt.*;
 
 public class Screen {
 
     public final static int PADDING = 10;
-    private final static int CELLENGTH = 16;
+    private final static int CELLENGTH = 64;
+    private final static String fieldPic = "grass.png";
 
     private int width;      //width field
     private int length;      //length field
     private Grid grid;
-    private Rectangle field;
+    private Picture field;
 
     public Screen(Grid grid){
-        width = grid.getCols()*CELLENGTH;
-        length = grid.getRows()*CELLENGTH;
-        field = new Rectangle(PADDING, PADDING, width, length);
+        width = grid.getCols()*CELLENGTH+PADDING;
+        length = grid.getRows()*CELLENGTH+PADDING;
+        field = new Picture(width, length);
+        field.translate(PADDING,PADDING);
+        field.load(fieldPic);
     }
 
-    //start screen
 
     public void show() {
         field.draw();
@@ -37,7 +39,6 @@ public class Screen {
 
     public int getCellsize(){
         return CELLENGTH;
-        //cellsize
     }
 
     public int getPadding(){
@@ -53,11 +54,13 @@ public class Screen {
     }
 
     public int rowToY(int row) {
-        return PADDING + CELLENGTH * row;
+        return PADDING + (CELLENGTH * row)-5;
     }
 
     public int columnToX(int col) {
-        return PADDING + CELLENGTH * col;
+        return PADDING + (CELLENGTH * col);
     }
 
+    //public showText(){};
+    //TODO create a screen for text output.
 }

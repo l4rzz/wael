@@ -12,7 +12,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class Screen {
 
     public final static int PADDING = 10;
-    private final static int CELLENGTH = 64;
+    private final static int CELLENGTH = 32;
     private final static String fieldPic = "grass.png";
 
     private int width;      //width field
@@ -21,8 +21,8 @@ public class Screen {
     private Picture field;
 
     public Screen(Grid grid){
-        width = grid.getCols()*CELLENGTH+PADDING;
-        length = grid.getRows()*CELLENGTH+PADDING;
+        width = (grid.getCols()*CELLENGTH)+PADDING;
+        length = (grid.getRows()*CELLENGTH)+PADDING;
         field = new Picture(width, length);
         field.translate(PADDING,PADDING);
         field.load(fieldPic);

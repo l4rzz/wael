@@ -8,20 +8,20 @@ import nl.codeforall.cannabits.visuals.characterVisuals.Sprite;
 public class ScreenTest {
     public static void main(String[] args) throws InterruptedException {
 
-        Grid grid = new Grid(8,8);
+        Grid grid = new Grid(16,16);
 
         Screen screen = new Screen(grid);
         screen.show();
-        Sprite enemy = new EnemySprite(0,0,screen,Direction.DOWN);
-        System.out.println(enemy.getXcoordinate());
-        Sprite player = new PlayerSprite(8,8,screen,Direction.RIGHT);
+        Sprite enemy = new EnemySprite(5,5,screen,Direction.DOWN);
+        Sprite player = new PlayerSprite(3,5,screen,Direction.RIGHT);
 
 
+        enemy.move(FieldDirection.LEFT);
+        enemy.move(FieldDirection.LEFT);
+        enemy.move(FieldDirection.LEFT);
+        enemy.move(FieldDirection.DOWN);
         enemy.move(FieldDirection.RIGHT);
-        enemy.move(FieldDirection.DOWN);
-        enemy.move(FieldDirection.DOWN);
-        enemy.move(FieldDirection.DOWN);
-
+        enemy.move(FieldDirection.RIGHT);
 
     }
 }

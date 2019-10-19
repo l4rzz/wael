@@ -6,23 +6,26 @@ package nl.codeforall.cannabits.visuals;
 import nl.codeforall.cannabits.gamelogic.object.Player;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import nl.codeforall.cannabits.gamelogic.Grid;
-
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 
 public class Screen {
 
     public final static int PADDING = 10;
     private final static int CELLENGTH = 64;
+    private final static String fieldPic = "grass.png";
 
     private int width;      //width field
     private int length;      //length field
     private Grid grid;
-    private Rectangle field;
+    private Picture field;
 
     public Screen(Grid grid){
         width = grid.getCols()*CELLENGTH+PADDING;
         length = grid.getRows()*CELLENGTH+PADDING;
-        field = new Rectangle(PADDING, PADDING, width, length);
+        field = new Picture(width, length);
+        field.translate(PADDING,PADDING);
+        field.load(fieldPic);
     }
 
 

@@ -9,7 +9,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 //TODO make sprites porportionally for cellsize, extend sprite movements
 
 public class PlayerSprite extends Sprite{
-    private final static String pictureSource = "playersprites/Player/tile011.png";
+    private final static String pictureSource = "playersprites/Player/leftstand.png";
     private Picture sprite;
 
     public PlayerSprite(int col, int row, Screen screen, Direction direction){
@@ -34,26 +34,62 @@ public class PlayerSprite extends Sprite{
         switch(direction){
 
             case UP:
-                setFieldDirection(FieldDirection.UP);
-                Thread.sleep(1000);
-                sprite.translate(0, -travelDistance);
+                moveUpAnimation(travelDistance);
                 break;
             case DOWN:
-                setFieldDirection(FieldDirection.DOWN);
-                Thread.sleep(1000);
-                sprite.translate(0, travelDistance);
+                moveDownAnimation(travelDistance);
                 break;
             case LEFT:
-                setFieldDirection(FieldDirection.LEFT);
-                Thread.sleep(1000);
-                sprite.translate(-travelDistance,0);
+                moveLeftAnimation(travelDistance);
                 break;
             case RIGHT:
-                setFieldDirection(FieldDirection.RIGHT);
-                Thread.sleep(1000);
-                sprite.translate(travelDistance, 0);
+                moveRightAnimation(travelDistance);
                 break;
         }
+    }
+
+    public void moveLeftAnimation(int travelDistance) throws InterruptedException {
+        sprite.load("playersprites/Player/leftwalk1.png");
+        setFieldDirection(FieldDirection.LEFT);
+        Thread.sleep(500);
+        sprite.translate(-(travelDistance/2),0);
+        sprite.load("playersprites/Player/leftwalk3.png");
+        Thread.sleep(500);
+        sprite.translate(-(travelDistance/2),0);
+        sprite.load("playersprites/Player/leftwalk2.png");
+    }
+
+    public void moveRightAnimation(int travelDistance) throws InterruptedException {
+        sprite.load("playersprites/Player/rightwalk1.png");
+        setFieldDirection(FieldDirection.RIGHT);
+        Thread.sleep(500);
+        sprite.translate(travelDistance/2,0);
+        sprite.load("playersprites/Player/rightwalk3.png");
+        Thread.sleep(500);
+        sprite.translate(travelDistance/2,0);
+        sprite.load("playersprites/Player/rightwalk2.png");
+    }
+
+    public void moveUpAnimation(int travelDistance) throws InterruptedException {
+        sprite.load("playersprites/Player/upwalk1.png");
+        setFieldDirection(FieldDirection.UP);
+        Thread.sleep(500);
+        sprite.translate(0,-(travelDistance/2));
+        sprite.load("playersprites/Player/upwalk3.png");
+        Thread.sleep(500);
+        sprite.translate(0,-(travelDistance/2));
+        sprite.load("playersprites/Player/upwalk2.png");
+    }
+
+    public void moveDownAnimation(int travelDistance) throws InterruptedException {
+        sprite.load("playersprites/Player/downwalk1.png");
+        setFieldDirection(FieldDirection.LEFT);
+        Thread.sleep(500);
+        sprite.translate(0,travelDistance/2);
+        sprite.load("playersprites/Player/downwalk3.png");
+        Thread.sleep(500);
+        sprite.translate(0,travelDistance/2);
+        sprite.load("playersprites/Player/downwalk2.png");
     }
 
     public int getHeight(){

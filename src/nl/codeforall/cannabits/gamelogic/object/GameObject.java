@@ -2,7 +2,7 @@ package nl.codeforall.cannabits.gamelogic.object;
 
 import nl.codeforall.cannabits.gamelogic.Cell;
 import nl.codeforall.cannabits.gamelogic.Grid;
-import nl.codeforall.cannabits.visuals.Sprite;
+import nl.codeforall.cannabits.visuals.characterVisuals.Sprite;
 
 public abstract class GameObject {
     private Cell position;
@@ -14,6 +14,8 @@ public abstract class GameObject {
         this.gameObjectType = gameObjectType;
     }
 
+    //public void setStaticObjectPosition(){}
+    //public void toggle occupied(){}
     public void setStartPosition(Grid grid){
         this.grid = grid;
         int maxCols = grid.getCols() -1;
@@ -23,6 +25,7 @@ public abstract class GameObject {
 
         if(grid.isOccupied(setCol, setRow)){
             setStartPosition(grid);
+
         }
 
     }

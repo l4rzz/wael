@@ -105,7 +105,7 @@ public class Game {
             // Enemy turn
 
             // moves in game logic
-            enemy.moveToWard(player.getCell());
+            //enemy.moveToWard(player.getCell());
             // TODO Show move on screen
             // Screen.showNewPosition(player);
 

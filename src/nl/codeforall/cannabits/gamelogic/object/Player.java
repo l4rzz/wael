@@ -4,6 +4,10 @@ import nl.codeforall.cannabits.gamelogic.Direction;
 
 public class Player extends GameCharacter {
 
+    public Player(GameObjectType gameObjectType){
+        super(gameObjectType);
+    }
+
     public void attack(){
         //attack enemy when close
         //skeleton version: this is just walking over them.
@@ -31,7 +35,7 @@ public class Player extends GameCharacter {
         }
     }
     @Override
-    public boolean isDirectionPossible(Direction direction){
+    public boolean isDirectionPossible(Direction direction, Wall[] walls){
         return false;
    }
 }

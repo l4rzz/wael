@@ -9,8 +9,13 @@ public abstract class GameCharacter extends GameObject implements Moveable {
     private Direction direction;
     private boolean dead;
 
+    public GameCharacter(GameObjectType gameObjectType) {
+        super(gameObjectType);
+    }
+
+
     @Override
-    public boolean isDirectionPossible(Direction direction) {
+    public boolean isDirectionPossible(Direction direction, Wall[] walls) {
         int totalColumns = getGrid().getCols() -1;
         int totalRows = getGrid().getRows() -1;
         int currentCol = getCell().getCols();

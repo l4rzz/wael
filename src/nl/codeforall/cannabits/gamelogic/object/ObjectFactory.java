@@ -10,11 +10,11 @@ public class ObjectFactory {
 
         switch (gameObjectType){
             case PLAYER:
-                return new Player();
+                return new Player(gameObjectType);
             case ENEMY:
-                return new Enemy();
+                return new Enemy(gameObjectType);
             case WALL:
-                return new Wall();
+                return new Wall(gameObjectType);
 
         }
         return null;

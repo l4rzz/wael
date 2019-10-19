@@ -5,8 +5,7 @@ import nl.codeforall.cannabits.gamelogic.Direction;
 
 public class Enemy extends GameCharacter {
 
-
-    public Enemy(GameObjectType gameObjectType) {
+    public Enemy(GameObjectType gameObjectType){
         super(gameObjectType);
     }
 
@@ -27,12 +26,12 @@ public class Enemy extends GameCharacter {
         if (Math.abs(colDifference) > Math.abs(rowDifference)) {
             if (colDifference < 0) {
                 //go right
-                if (isDirectionPossible(Direction.RIGHT)) {
+                if (isDirectionPossible(Direction.RIGHT, walls)) {
                     changeDirection(Direction.RIGHT);
                     cell.moveRight();
                     return;
                 }
-                if (isDirectionPossible(Direction.LEFT)) {
+                if (isDirectionPossible(Direction.LEFT, walls)) {
                     changeDirection(Direction.LEFT);
                     cell.moveLeft();
                     return;
@@ -41,13 +40,13 @@ public class Enemy extends GameCharacter {
             }
             if (rowDifference < 0) {
                 //go down
-                if (isDirectionPossible(Direction.DOWN)) {
+                if (isDirectionPossible(Direction.DOWN, walls)) {
                     changeDirection(Direction.DOWN);
                     cell.moveDown();
                     return;
                 }
 
-                if (isDirectionPossible(Direction.UP)) {
+                if (isDirectionPossible(Direction.UP, walls)) {
                     changeDirection(Direction.UP);
                     cell.moveUp();
                     return;
@@ -58,7 +57,7 @@ public class Enemy extends GameCharacter {
 
 
     @Override
-    public boolean isDirectionPossible(Direction direction) {
+    public boolean isDirectionPossible(Direction direction, Wall[] walls) {
         return false;
     }
 

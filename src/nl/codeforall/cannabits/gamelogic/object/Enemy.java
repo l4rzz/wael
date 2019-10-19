@@ -30,7 +30,7 @@ public class Enemy extends GameCharacter {
                 }
                 if (isDirectionPossible(Direction.LEFT)) {
                     changeDirection(Direction.LEFT);
-                    cell.moveRight();
+                    cell.moveLeft();
                     return;
                 }
 

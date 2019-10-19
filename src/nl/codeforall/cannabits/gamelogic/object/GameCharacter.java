@@ -4,22 +4,27 @@ import nl.codeforall.cannabits.gamelogic.Direction;
 import nl.codeforall.cannabits.gamelogic.Grid;
 import nl.codeforall.cannabits.gamelogic.Moveable;
 
-public abstract class Character extends GameObject implements Moveable {
+public abstract class GameCharacter extends GameObject implements Moveable {
 
     private Direction direction;
     private boolean dead;
+
+    public GameCharacter(GameObjectType gameObjectType) {
+        super(gameObjectType);
+    }
+
 
     @Override
     public boolean isDirectionPossible(Direction direction, Wall[] walls) {
         int totalColumns = getGrid().getCols() -1;
         int totalRows = getGrid().getRows() -1;
-        int currentCol = getCell().getCol();
-        int currentRow = getCell().getRow();
+        int currentCol = getCell().getCols();
+        int currentRow = getCell().getRows();
         /*
             Check if it is NOT possible to move for the borders
             Check if it is NOT possible to move for each wall
          */
-
+        //if you are already bumping into the border, it is not a wall
         switch (direction){
             case UP:
                 return currentRow < 0;
@@ -30,17 +35,30 @@ public abstract class Character extends GameObject implements Moveable {
             case RIGHT:
                 return currentCol > totalColumns;
         }
-        for(i int = 0; i < walls.lenght; i++){
+
+        for(int i = 0; i < walls.length; i++){
             //Check if you can NOT move for each wall
             switch(direction){
                 case UP:
-                    return currentCol < walls.getCell().getCols();
-                case Down:
-                    return currentCol > walls.getCell().getCols();
+                    if(currentCol < walls.getCell().getCols()){
+                        return false;
+                    }
+                    break;
+                case DOWN:
+                    if(currentCol > walls.getCell().getCols()){
+                        return false;
+                    }
+                    break;
                 case LEFT:
-                    return currentRow < walls.getCell().getRows();
+                    if(currentRow < walls.getCell().getRows()){
+                        return false;
+                    }
+                    break;
                 case RIGHT:
-                    return currentRow > walls.getCell().getRows();
+                    if(currentRow > walls.getCell().getRows()){
+                        return false;
+                    }
+
             }
         }
         //all borders, walls checked. So you can move.
@@ -53,5 +71,9 @@ public abstract class Character extends GameObject implements Moveable {
 
     public boolean isDead(){
         return dead;
+    }
+
+    public void setDead(){
+        dead = true;
     }
 }

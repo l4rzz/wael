@@ -7,6 +7,11 @@ public abstract class GameObject {
     private Cell position;
     private Grid grid;
     private Sprite sprite;
+    private GameObjectType gameObjectType;
+
+    public GameObject(GameObjectType gameObjectType){
+        this.gameObjectType = gameObjectType;
+    }
 
     public void setStarPosition(Grid grid){
         this.grid = grid;
@@ -39,5 +44,9 @@ public abstract class GameObject {
 
     public Sprite getSprite() {
         return sprite;
+    }
+
+    public GameObjectType getGameObjectType(){
+        return gameObjectType;
     }
 }

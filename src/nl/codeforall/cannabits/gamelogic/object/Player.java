@@ -1,9 +1,8 @@
 package nl.codeforall.cannabits.gamelogic.object;
 
 import nl.codeforall.cannabits.gamelogic.Direction;
-import nl.codeforall.cannabits.gamelogic.object.Character;
 
-public class Player extends Character {
+public class Player extends GameCharacter {
 
     public void attack(){
         //attack enemy when close
@@ -26,7 +25,7 @@ public class Player extends Character {
                 getCell().moveLeft();
                 break;
             case RIGHT:
-                changeDirection(Direction.Right);
+                changeDirection(Direction.RIGHT);
                 getCell().moveRight();
                 break;
         }

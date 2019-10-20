@@ -5,25 +5,27 @@ public class Cell {
 
     private int col;
     private int row;
-    private boolean availableCell = true;
+    private boolean passable;
 
-    public boolean checkAvailableCell() {
-        return availableCell;
+    public Cell(int col, int row){
+        this.col = col;
+        this.row = row;
+        passable = true;
     }
 
-    public boolean isAvailable() {
-        return availableCell;
+    public boolean isPassable() {
+        return passable;
     }
 
-    public void setAvailable(boolean availableCell) {
-        this.availableCell = availableCell;
+    public void setNotPassable() {
+        this.passable = false;
     }
 
-    public int getCols() {
+    public int getCol() {
         return this.col;
     }
 
-    public int getRows() {
+    public int getRow() {
         return this.row;
     }
 
@@ -46,14 +48,14 @@ public class Cell {
     }
 
     private void generateRandCol() {
-        int randCols = ((int) (Math.random() * getCols()));
+        int randCols = ((int) (Math.random() * getCol()));
         if (randCols == this.col) {
             generateRandCol();
         }
     }
 
     private void generateRandRow() {
-        int randRows = ((int) (Math.random() * getRows()));
+        int randRows = ((int) (Math.random() * getRow()));
         if (randRows == this.row) {
             generateRandRow();
         }

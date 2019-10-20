@@ -15,21 +15,19 @@ public enum Direction {
 
         switch (this) {
             case UP:
-                opposite = Direction.DOWN;
-                break;
-
+                return Direction.DOWN;
             case DOWN:
-                opposite = Direction.UP;
-                break;
-
+                return Direction.UP;
             case LEFT:
-                opposite = Direction.RIGHT;
-                break;
-
+                return Direction.RIGHT;
             case RIGHT:
-                opposite = Direction.LEFT;
-                break;
+                return Direction.LEFT;
+
         }
         return oppositeGridDirection;
+    }
+
+    public static Direction generateRandom(){
+        return Direction.values()[(int)(Math.random() * 4)];
     }
 }

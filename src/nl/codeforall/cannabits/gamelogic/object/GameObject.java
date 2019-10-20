@@ -10,22 +10,24 @@ public abstract class GameObject {
     private Sprite sprite;
     private GameObjectType gameObjectType;
 
-    public GameObject(GameObjectType gameObjectType){
+    public GameObject(GameObjectType gameObjectType, Grid grid){
         this.gameObjectType = gameObjectType;
+        this.grid = grid;
+        setStartPosition(grid);
     }
+
+
 
     //public void setStaticObjectPosition(){}
     //public void toggle occupied(){}
     public void setStartPosition(Grid grid){
-        this.grid = grid;
         int maxCols = grid.getCols() -1;
         int maxRows = grid.getRows() -1;
         int setCol = (int)Math.floor(Math.random()*maxCols);
         int setRow = (int)Math.floor(Math.random()*maxRows);
-
-        if(grid.isOccupied(setCol, setRow)){
+        this.position = new Cell(setCol, setRow);
+        if(!position.isPassable()){
             setStartPosition(grid);
-
         }
 
     }

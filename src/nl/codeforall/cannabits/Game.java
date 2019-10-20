@@ -5,42 +5,87 @@ import nl.codeforall.cannabits.gamelogic.Direction;
 import nl.codeforall.cannabits.gamelogic.Grid;
 import nl.codeforall.cannabits.gamelogic.object.*;
 import nl.codeforall.cannabits.visuals.Screen;
+import nl.codeforall.cannabits.visuals.SpriteFactory;
+import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
+import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
+import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
+import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
-public class Game {
-
-    // variable where the latest user input can be read.
-    public UserInput userinput;
+public class Game implements KeyboardHandler{
 
     private Grid grid;
     private Player player;
     private Enemy enemy;
     private Screen screen;
 
+    Direction desiredDirection = null;
     public Game(){
-        // create a grid
+        // create a grid and screen
         grid = new Grid(16,16);
+        screen = new Screen(grid);
+        screen.show();
 
         // TODO implement walls in game
 
         // creation of GameObjects
-        player = (Player) ObjectFactory.createObject(GameObjectType.PLAYER);
-        enemy = (Enemy) ObjectFactory.createObject(GameObjectType.ENEMY);
+        player = (Player) ObjectFactory.createObject(GameObjectType.PLAYER, grid);
+        SpriteFactory.makeSprite(player,screen);
+        enemy = (Enemy) ObjectFactory.createObject(GameObjectType.ENEMY, grid);
+        SpriteFactory.makeSprite(enemy,screen);
 
-        // setting of their start positions
-        player.setStartPosition(grid);
-        enemy.setStartPosition(grid);
-
-        // initialising screen
-        screen = new Screen(grid);
-        screen.show();
-
+        myKeyboard();
 
     }
 
+    public void myKeyboard(){
+        Keyboard keyboard = new Keyboard(this);
+
+
+        KeyboardEvent keyUp = new KeyboardEvent();
+        keyUp.setKey(KeyboardEvent.KEY_UP);
+        keyUp.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        keyboard.addEventListener(keyUp);
+
+        KeyboardEvent keyDown = new KeyboardEvent();
+        keyDown.setKey(KeyboardEvent.KEY_DOWN);
+        keyDown.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        keyboard.addEventListener(keyDown);
+
+        KeyboardEvent keyLeft = new KeyboardEvent();
+        keyLeft.setKey(KeyboardEvent.KEY_LEFT);
+        keyLeft.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        keyboard.addEventListener(keyLeft);
+
+        KeyboardEvent keyRight = new KeyboardEvent();
+        keyRight.setKey(KeyboardEvent.KEY_RIGHT);
+        keyRight.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        keyboard.addEventListener(keyRight);
+
+    }
+    @Override
+    public void keyPressed(KeyboardEvent keyboardEvent) {
+        switch(keyboardEvent.getKey()) {
+            case KeyboardEvent.KEY_UP:
+                desiredDirection = Direction.UP;
+                break;
+            case KeyboardEvent.KEY_DOWN:
+                desiredDirection = Direction.DOWN;
+                break;
+            case KeyboardEvent.KEY_LEFT:
+                desiredDirection = Direction.LEFT;
+                break;
+            case KeyboardEvent.KEY_RIGHT:
+                desiredDirection = Direction.RIGHT;
+                break;
+        }
+    }
     public void start(){
+
+
+
         // Local vars
         String keystroke = "";
-        Direction desiredDirection = null;
+
 
         // loop till player or enemy is dead
         while (!enemy.isDead() && !player.isDead()){
@@ -129,5 +174,10 @@ public class Game {
 
 
 
+
+    @Override
+    public void keyReleased(KeyboardEvent keyboardEvent) {
+
+    }
 }
 

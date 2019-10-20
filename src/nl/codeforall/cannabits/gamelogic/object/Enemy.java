@@ -2,19 +2,20 @@ package nl.codeforall.cannabits.gamelogic.object;
 
 import nl.codeforall.cannabits.gamelogic.Cell;
 import nl.codeforall.cannabits.gamelogic.Direction;
+import nl.codeforall.cannabits.gamelogic.Grid;
 
 public class Enemy extends GameCharacter {
 
-    public Enemy(GameObjectType gameObjectType){
-        super(gameObjectType);
+    public Enemy(GameObjectType gameObjectType, Grid grid){
+        super(gameObjectType, grid);
     }
 
     public void moveTowardWithWalls(Cell cell) {
 
         // compare columns
-        int colDifference = cell.getCols() - getCell().getCols();
+        int colDifference = cell.getCol() - getCell().getCol();
         // compare rows
-        int rowDifference = cell.getRows() - getCell().getRows();
+        int rowDifference = cell.getRow() - getCell().getRow();
         Direction[] directionOrder = new Direction[2];
 
         //order in which the directions are checked

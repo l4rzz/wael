@@ -19,9 +19,6 @@ public class Grid {
         return rows;
     }
 
-    public boolean isOccupied(int setCol, int setRow) {
-        return occupied;
-    }
 }
 
 

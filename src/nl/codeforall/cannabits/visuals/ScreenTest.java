@@ -7,7 +7,7 @@ import nl.codeforall.cannabits.visuals.characterVisuals.Sprite;
 import nl.codeforall.cannabits.visuals.characterVisuals.WallSprite;
 
 public class ScreenTest {
-    public static void main(String[] args) throws InterruptedException {
+    /*public static void main(String[] args) throws InterruptedException {
 
         Grid grid = new Grid(16,16);
 
@@ -37,5 +37,5 @@ public class ScreenTest {
 
 
 
-    }
+    }*/
 }

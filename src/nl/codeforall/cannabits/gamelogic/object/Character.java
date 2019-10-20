@@ -4,7 +4,7 @@ import nl.codeforall.cannabits.gamelogic.Direction;
 import nl.codeforall.cannabits.gamelogic.Grid;
 import nl.codeforall.cannabits.gamelogic.Moveable;
 
-public abstract class Character extends GameObject implements Moveable {
+public abstract class GameCharacter extends GameObject implements Moveable {
 
     private Direction direction;
     private boolean dead;

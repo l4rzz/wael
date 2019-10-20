@@ -1,12 +1,13 @@
 package nl.codeforall.cannabits;
 
-import nl.codeforall.cannabits.gamelogic.Cell;
 import nl.codeforall.cannabits.gamelogic.Direction;
 import nl.codeforall.cannabits.gamelogic.Grid;
 import nl.codeforall.cannabits.gamelogic.object.*;
 import nl.codeforall.cannabits.visuals.Screen;
 import nl.codeforall.cannabits.visuals.SpriteFactory;
 import nl.codeforall.cannabits.visuals.characterVisuals.Sprite;
+import org.academiadecodigo.simplegraphics.graphics.Color;
+import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -52,64 +53,65 @@ public class Game implements KeyboardHandler {
         keyboard.addEventListener(event);
     }
 
-    public void keyboardKeys(){
-        addKeyboardEvent(KeyboardEvent.KEY_UP,KeyboardEventType.KEY_PRESSED);
-        addKeyboardEvent(KeyboardEvent.KEY_DOWN,KeyboardEventType.KEY_PRESSED);
-        addKeyboardEvent(KeyboardEvent.KEY_LEFT,KeyboardEventType.KEY_PRESSED);
-        addKeyboardEvent(KeyboardEvent.KEY_RIGHT,KeyboardEventType.KEY_PRESSED);
-        addKeyboardEvent(KeyboardEvent.KEY_UP,KeyboardEventType.KEY_RELEASED);
-        addKeyboardEvent(KeyboardEvent.KEY_DOWN,KeyboardEventType.KEY_RELEASED);
-        addKeyboardEvent(KeyboardEvent.KEY_RIGHT,KeyboardEventType.KEY_RELEASED);
-        addKeyboardEvent(KeyboardEvent.KEY_LEFT,KeyboardEventType.KEY_RELEASED);
+    public void keyboardKeys() {
+        addKeyboardEvent(KeyboardEvent.KEY_UP, KeyboardEventType.KEY_PRESSED);
+        addKeyboardEvent(KeyboardEvent.KEY_DOWN, KeyboardEventType.KEY_PRESSED);
+        addKeyboardEvent(KeyboardEvent.KEY_LEFT, KeyboardEventType.KEY_PRESSED);
+        addKeyboardEvent(KeyboardEvent.KEY_RIGHT, KeyboardEventType.KEY_PRESSED);
+        addKeyboardEvent(KeyboardEvent.KEY_UP, KeyboardEventType.KEY_RELEASED);
+        addKeyboardEvent(KeyboardEvent.KEY_DOWN, KeyboardEventType.KEY_RELEASED);
+        addKeyboardEvent(KeyboardEvent.KEY_RIGHT, KeyboardEventType.KEY_RELEASED);
+        addKeyboardEvent(KeyboardEvent.KEY_LEFT, KeyboardEventType.KEY_RELEASED);
 
     }
 
 
     public void start() throws InterruptedException {
-    keyboardKeys();
+        keyboardKeys();
 
-    while (!player.isDead()&&!enemy.isDead()){
+        while (!player.isDead() && !enemy.isDead()) {
 
+            playerTurn();
 
-        playerTurn();
+            Thread.sleep(60);
 
+            if (characterDeadCheck()) {
+                String winner = "Player";
+                showResult(winner);
+                return;
+            }
 
+            Thread.sleep(60);
 
-        Thread.sleep(100);
-        if(characterDeadCheck()){
-            System.out.println("Player win!");
-            return;
+            enemyTurn();
+
+            if (characterDeadCheck()) {
+                String winner = "Enemy";
+                showResult(winner);
+                return;
+            }
         }
-        Thread.sleep(100);
-        enemyTurn();
-        if(characterDeadCheck()){
-            System.out.println("Enemy win!");
-            return;
-        }
+
     }
 
-
-
-    }
-
-    public boolean keyPressCheck(){
-        if (upKey || downKey|| leftKey|| rightKey){
+    public boolean keyPressCheck() {
+        if (upKey || downKey || leftKey || rightKey) {
             return true;
         }
+
         return false;
     }
 
 
-
     private boolean playerTurn() throws InterruptedException {
-        while(!keyPressCheck()){
+        //Prevents the game from running, if no key is pressed.
+        while (!keyPressCheck()) {
             Thread.sleep(10);
         }
 
         if (keyPressCheck()) {
-            System.out.println("executing turn");
+
             if (!player.isDirectionPossible(desiredDirection)) {
-                System.out.println("no can do");
                 return false;
             }
 
@@ -139,33 +141,40 @@ public class Game implements KeyboardHandler {
 
     }
 
-    public void enemyTurn()throws InterruptedException {
+    public void enemyTurn() throws InterruptedException {
 
-            enemy.moveTowards(player.getCell());
-            Thread.sleep(50);
-            enemySprite.move(enemy.getDirection());
+        enemy.moveTowards(player.getCell());
+        Thread.sleep(50);
+        enemySprite.move(enemy.getDirection());
 
-            // check if move results in fight because two characters are in same position
-            if (enemy.getCell().compareCells(player.getCell())) {
+        // check if move results in fight because two characters are in same position
+        if (enemy.getCell().compareCells(player.getCell())) {
 
-                player.setDead();
-                int explosionDelay = 50;
+            player.setDead();
+            int explosionDelay = 50;
 
-                for(int i = 1; i < 7; i ++) {
-                    playerSprite.getPicture().load("explosion/explosion" + i + ".png");
-                    Thread.sleep(explosionDelay);
-                }
-
-                playerSprite.getPicture().delete();
-
+            for (int i = 1; i < 7; i++) {
+                playerSprite.getPicture().load("explosion/explosion" + i + ".png");
+                Thread.sleep(explosionDelay);
             }
+
+            playerSprite.getPicture().delete();
+
+        }
     }
 
-    public boolean characterDeadCheck(){
-        if(player.isDead() || enemy.isDead()){
+    public boolean characterDeadCheck() {
+        if (player.isDead() || enemy.isDead()) {
             return true;
         }
         return false;
+    }
+
+    public void showResult(String winner) {
+        Text winResult = new Text(230, 250, "Game Over - " + winner + " wins!");
+        winResult.setColor(Color.RED);
+        winResult.grow(140, 55);
+        winResult.draw();
     }
 
 

@@ -15,8 +15,8 @@ public class Screen {
     private final static int CELLENGTH = 32;
     private final static String fieldPic = "grass.png";
 
-    private int width;      //width field
-    private int length;      //length field
+    private int width;
+    private int length;
     private Grid grid;
     private Picture field;
 
@@ -41,20 +41,8 @@ public class Screen {
         return CELLENGTH;
     }
 
-    public int getPadding(){
-        return PADDING;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public Grid getGrid() {
-        return grid;
-    }
-
     public int rowToY(int row) {
-        return PADDING + (CELLENGTH * row)-5;
+        return PADDING + (CELLENGTH * row);
     }
 
     public int columnToX(int col) {

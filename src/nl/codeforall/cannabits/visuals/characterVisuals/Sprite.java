@@ -46,13 +46,6 @@ public abstract class Sprite<T> {
 
     public abstract void deadAnimation() throws InterruptedException;
 
-    //TODO showNewPostition(player);
-    //get direction from player the draw towards direction.
-    public void showNewPosition(GameCharacter character) {
-
-    }
-
-
     public void move(Direction direction) throws InterruptedException {
         //TODO move
         int travelDistance = screen.getCellsize();

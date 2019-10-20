@@ -4,10 +4,6 @@ import nl.codeforall.cannabits.gamelogic.Grid;
 
 public class ObjectFactory {
 
-    //Creates instance of Player, Enemy, (Walls)
-
-    //switch(objectType)
-
     public static GameObject createObject(GameObjectType gameObjectType, Grid grid){
 
         switch (gameObjectType){

@@ -47,20 +47,6 @@ public class Cell {
         this.col++;
     }
 
-    private void generateRandCol() {
-        int randCols = ((int) (Math.random() * getCol()));
-        if (randCols == this.col) {
-            generateRandCol();
-        }
-    }
-
-    private void generateRandRow() {
-        int randRows = ((int) (Math.random() * getRow()));
-        if (randRows == this.row) {
-            generateRandRow();
-        }
-    }
-
     public boolean compareCells(Cell other){
         if (row == other.getRow() && col == other.getCol()) {
             return true;

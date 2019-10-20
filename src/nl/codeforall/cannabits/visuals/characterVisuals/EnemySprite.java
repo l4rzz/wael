@@ -108,9 +108,5 @@ public class EnemySprite extends Sprite {
         return this.sprite;
     }
 
-    public int getHeight(){
-       return sprite.getHeight();
-    }
-
 }
 

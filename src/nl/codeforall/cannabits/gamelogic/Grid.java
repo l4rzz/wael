@@ -4,7 +4,6 @@ public class Grid {
 
     private int cols;
     private int rows;
-    private boolean occupied;
 
     public Grid(int cols, int rows) {
         this.cols = cols;

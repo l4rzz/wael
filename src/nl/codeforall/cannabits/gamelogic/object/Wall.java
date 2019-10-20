@@ -9,7 +9,6 @@ public class Wall extends GameObject{
     }
 
     public void setFinalPosition(int col, int row){
-        getGrid().notPassable(col, row);
         getCell().setCol(col);
         getCell().setRow(row);
         getGrid().notPassable(col, row);

@@ -103,6 +103,10 @@ public class EnemySprite extends Sprite {
         sprite.delete();
     }
 
+    @Override
+    public Picture getPicture(){
+        return this.sprite;
+    }
 
     public int getHeight(){
        return sprite.getHeight();

@@ -28,7 +28,7 @@ public class SpriteFactory {
             case PLAYER:
                 return new PlayerSprite(object.getCell().getCol(), object.getCell().getRow(), screen, Direction.generateRandom());
         }
-        return new WallSprite(0,0,screen);
+        return new WallSprite(object.getCell().getCol(),object.getCell().getRow(),screen);
 
 
 

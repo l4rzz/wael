@@ -102,10 +102,9 @@ public class PlayerSprite extends Sprite{
         sprite.delete();
     }
 
-    public int getHeight(){
-        return sprite.getHeight();
+    @Override
+    public Picture getPicture() {
+        return sprite;
     }
-
-
 }
 

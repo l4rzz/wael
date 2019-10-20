@@ -15,6 +15,7 @@ public abstract class Sprite<T> {
     private FieldDirection fieldDirection;
     private int xcoordinate;
     private int ycoordinate;
+    private Picture picture;
 
     public Sprite(int col, int row, Screen screen, Direction direction) {
 
@@ -90,6 +91,8 @@ public abstract class Sprite<T> {
         this.fieldDirection = direction;
     }
 
-
+    public Picture getPicture(){
+        return this.picture;
+    }
 
 }

@@ -20,8 +20,13 @@ public class Game implements KeyboardHandler {
     private Sprite playerSprite;
     private Sprite enemySprite;
     private Screen screen;
+    private Keyboard keyboard = new Keyboard(this);
+    private boolean upKey;
+    private boolean downKey;
+    private boolean leftKey;
+    private boolean rightKey;
 
-    Direction desiredDirection = null;
+    private Direction desiredDirection = null;
 
     public Game() {
         // create a grid and screen
@@ -40,114 +45,169 @@ public class Game implements KeyboardHandler {
 
     }
 
-    public void myKeyboard() {
-        Keyboard keyboard = new Keyboard(this);
+    public void addKeyboardEvent(int key, KeyboardEventType type) {
+        KeyboardEvent event = new KeyboardEvent();
+        event.setKey(key);
+        event.setKeyboardEventType(type);
+        keyboard.addEventListener(event);
+    }
 
-        KeyboardEvent keyUp = new KeyboardEvent();
-        keyUp.setKey(KeyboardEvent.KEY_UP);
-        keyUp.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(keyUp);
-
-        KeyboardEvent keyDown = new KeyboardEvent();
-        keyDown.setKey(KeyboardEvent.KEY_DOWN);
-        keyDown.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(keyDown);
-
-        KeyboardEvent keyLeft = new KeyboardEvent();
-        keyLeft.setKey(KeyboardEvent.KEY_LEFT);
-        keyLeft.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(keyLeft);
-
-        KeyboardEvent keyRight = new KeyboardEvent();
-        keyRight.setKey(KeyboardEvent.KEY_RIGHT);
-        keyRight.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(keyRight);
+    public void keyboardKeys(){
+        addKeyboardEvent(KeyboardEvent.KEY_UP,KeyboardEventType.KEY_PRESSED);
+        addKeyboardEvent(KeyboardEvent.KEY_DOWN,KeyboardEventType.KEY_PRESSED);
+        addKeyboardEvent(KeyboardEvent.KEY_LEFT,KeyboardEventType.KEY_PRESSED);
+        addKeyboardEvent(KeyboardEvent.KEY_RIGHT,KeyboardEventType.KEY_PRESSED);
+        addKeyboardEvent(KeyboardEvent.KEY_UP,KeyboardEventType.KEY_RELEASED);
+        addKeyboardEvent(KeyboardEvent.KEY_DOWN,KeyboardEventType.KEY_RELEASED);
+        addKeyboardEvent(KeyboardEvent.KEY_RIGHT,KeyboardEventType.KEY_RELEASED);
+        addKeyboardEvent(KeyboardEvent.KEY_LEFT,KeyboardEventType.KEY_RELEASED);
 
     }
 
-    @Override
-    public void keyPressed(KeyboardEvent keyboardEvent) {
-        switch (keyboardEvent.getKey()) {
-            case KeyboardEvent.KEY_UP:
-                desiredDirection = Direction.UP;
-                break;
-            case KeyboardEvent.KEY_DOWN:
-                desiredDirection = Direction.DOWN;
-                break;
-            case KeyboardEvent.KEY_LEFT:
-                desiredDirection = Direction.LEFT;
-                break;
-            case KeyboardEvent.KEY_RIGHT:
-                desiredDirection = Direction.RIGHT;
-                break;
-        }
-        try {
-            turn(desiredDirection);
-            // TODO check if either player or enemy is dead and end game
-            // while (!enemy.isDead() && !player.isDead())
-        } catch (InterruptedException e) {
-
-        }
-    }
 
     public void start() throws InterruptedException {
-        myKeyboard();
-        // loop till player or enemy is dead
-         // end of turns, loop ends if there is a winner
-        // TODO Screen.gameMessage("Winner: " + winner);
-        GameCharacter winner = enemy; // TODO: Show results in text
+    keyboardKeys();
 
+    while (!player.isDead()&&!enemy.isDead()){
+
+
+        playerTurn();
+
+
+
+        Thread.sleep(100);
+        if(characterDeadCheck()){
+            System.out.println("Player win!");
+            return;
+        }
+        Thread.sleep(100);
+        enemyTurn();
+        if(characterDeadCheck()){
+            System.out.println("Enemy win!");
+            return;
+        }
     }
 
 
-    private void turn(Direction desiredDirection) throws InterruptedException {
-         {
-             System.out.println("executing turn");
-            // Player turn
-            // Checking if keystroke translates into possible move
+
+    }
+
+    public boolean keyPressCheck(){
+        if (upKey || downKey|| leftKey|| rightKey){
+            return true;
+        }
+        return false;
+    }
+
+
+
+    private boolean playerTurn() throws InterruptedException {
+        while(!keyPressCheck()){
+            Thread.sleep(10);
+        }
+
+        if (keyPressCheck()) {
+            System.out.println("executing turn");
             if (!player.isDirectionPossible(desiredDirection)) {
                 System.out.println("no can do");
-                return;
+                return false;
             }
 
-            // If possible move
+            // If possible move;
             player.move(desiredDirection);
-            playerSprite.move(desiredDirection);
+        }
+        while (keyPressCheck()) {
+            Thread.sleep(10);
+        }
+        playerSprite.move(desiredDirection);
+        // check if move results in fight because two characters are in same position
+        //TODO check this for each enemy, currently just one enemy
+        if (player.getCell().compareCells(enemy.getCell())) {
 
-            // check if move results in fight because two characters are in same position
-            //TODO check this for each enemy, currently just one enemy
-            if (player.getCell().compareCells(enemy.getCell())) {
+            // FIFO battle (gamelogic)
+            enemy.setDead();
+            int explosionDelay = 50;
 
-                // FIFO battle (gamelogic)
-                enemy.setDead();
-                enemySprite.deadAnimation();
-
-                // TODO: ONLY WITH MULTIPLE ENEMIES: check remaining number of enemies
-                GameCharacter winner = player;
-                return;
+            for (int i = 1; i < 7; i++) {
+                enemySprite.getPicture().load("explosion/explosion" + i + ".png");
+                Thread.sleep(explosionDelay);
             }
 
-            // Wait a few hundred milliseconds
-            //Thread.sleep(1000);
+            enemySprite.getPicture().delete();
+        }
+        return true;
 
-            // Enemy turn
+    }
+
+    public void enemyTurn()throws InterruptedException {
+
             enemy.moveTowards(player.getCell());
+            Thread.sleep(50);
             enemySprite.move(enemy.getDirection());
 
             // check if move results in fight because two characters are in same position
             if (enemy.getCell().compareCells(player.getCell())) {
 
                 player.setDead();
-                playerSprite.deadAnimation();
+                int explosionDelay = 50;
+
+                for(int i = 1; i < 7; i ++) {
+                    playerSprite.getPicture().load("explosion/explosion" + i + ".png");
+                    Thread.sleep(explosionDelay);
+                }
+
+                playerSprite.getPicture().delete();
 
             }
+    }
 
+    public boolean characterDeadCheck(){
+        if(player.isDead() || enemy.isDead()){
+            return true;
         }
+        return false;
+    }
+
+
+    @Override
+    public void keyPressed(KeyboardEvent keyboardEvent) {
+        switch (keyboardEvent.getKey()) {
+            case KeyboardEvent.KEY_UP:
+                upKey = true;
+                desiredDirection = Direction.UP;
+                break;
+            case KeyboardEvent.KEY_DOWN:
+                downKey = true;
+                desiredDirection = Direction.DOWN;
+                break;
+            case KeyboardEvent.KEY_LEFT:
+                leftKey = true;
+                desiredDirection = Direction.LEFT;
+                break;
+            case KeyboardEvent.KEY_RIGHT:
+                rightKey = true;
+                desiredDirection = Direction.RIGHT;
+                break;
+        }
+
     }
 
     @Override
     public void keyReleased(KeyboardEvent keyboardEvent) {
-
+        switch (keyboardEvent.getKey()) {
+            case KeyboardEvent.KEY_UP:
+                upKey = false;
+                break;
+            case KeyboardEvent.KEY_DOWN:
+                downKey = false;
+                break;
+            case KeyboardEvent.KEY_LEFT:
+                leftKey = false;
+                break;
+            case KeyboardEvent.KEY_RIGHT:
+                rightKey = false;
+                break;
+        }
     }
 }
 

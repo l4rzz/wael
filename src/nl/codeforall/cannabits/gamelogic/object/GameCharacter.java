@@ -21,28 +21,28 @@ public abstract class GameCharacter extends GameObject {
         switch (direction) {
             case UP:
                 futureCell.moveUp();
-                if (futureCell.getRow() > 0 && futureCell.isPassable()) {
+                if (futureCell.getRow() > 0 && getGrid().isPassable( this.getCell().getCol(), this.getCell().getRow()-1)) {
                     return true;
                 }else {
                     return false;
                 }
             case DOWN:
                 futureCell.moveDown();
-                if (futureCell.getRow() < getGrid().getRows() && futureCell.isPassable()){
+                if (futureCell.getRow() < getGrid().getRows() && getGrid().isPassable(this.getCell().getCol() , getCell().getRow()+1)){
                     return true;
                 }else {
                     return false;
                 }
             case LEFT:
                 futureCell.moveLeft();
-                if (futureCell.getCol() > 0 && futureCell.isPassable()){
+                if (futureCell.getCol() > 0 && getGrid().isPassable(this.getCell().getCol()-1,this.getCell().getRow())){
                     return true;
                 }else {
                     return false;
                 }
             case RIGHT:
                 futureCell.moveRight();
-                if(futureCell.getCol() < getGrid().getCols() && futureCell.isPassable()){
+                if(futureCell.getCol() < getGrid().getCols() && getGrid().isPassable(this.getCell().getCol()+1, this.getCell().getCol())){
                     return true;
                 }else {
                     return false;

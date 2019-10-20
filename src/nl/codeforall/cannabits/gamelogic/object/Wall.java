@@ -7,4 +7,11 @@ public class Wall extends GameObject{
     public Wall(GameObjectType gameObjectType, Grid grid){
         super(gameObjectType, grid);
     }
+
+    public void setFinalPosition(int col, int row){
+        getGrid().notPassable(col, row);
+        getCell().setCol(col);
+        getCell().setRow(row);
+        getGrid().notPassable(col, row);
+    }
 }

@@ -17,6 +17,7 @@ public class Cell {
         return passable;
     }
 
+
     public void setNotPassable() {
         this.passable = false;
     }
@@ -27,6 +28,14 @@ public class Cell {
 
     public int getRow() {
         return this.row;
+    }
+
+    public void setCol(int col){
+        this.col = col;
+    }
+
+    public void setRow(int row){
+        this.row = row;
     }
 
     //move one position up on field

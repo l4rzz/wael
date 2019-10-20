@@ -17,6 +17,7 @@ public class Game implements KeyboardHandler {
     private Grid grid;
     private Player player;
     private Enemy enemy;
+    private Wall[] walls;
     private Sprite playerSprite;
     private Sprite enemySprite;
     private Screen screen;
@@ -37,6 +38,16 @@ public class Game implements KeyboardHandler {
         // TODO implement walls in game
 
         // creation of GameObjects
+        walls = new Wall[4];
+        for(int i = 0; i < walls.length; i++){
+            walls[i] = (Wall) ObjectFactory.createObject(GameObjectType.WALL, grid);
+        }
+        walls[0].setFinalPosition(6,6);
+        walls[1].setFinalPosition(6,10);
+        walls[2].setFinalPosition(10,6);
+        walls[3].setFinalPosition(10,10);
+
+
         player = (Player) ObjectFactory.createObject(GameObjectType.PLAYER, grid);
         playerSprite = SpriteFactory.makeSprite(player, screen);
         enemy = (Enemy) ObjectFactory.createObject(GameObjectType.ENEMY, grid);

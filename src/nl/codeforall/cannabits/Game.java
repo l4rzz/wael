@@ -82,35 +82,37 @@ public class Game implements KeyboardHandler {
                 desiredDirection = Direction.RIGHT;
                 break;
         }
+        try {
+            turn(desiredDirection);
+            // TODO check if either player or enemy is dead and end game
+            // while (!enemy.isDead() && !player.isDead())
+        } catch (InterruptedException e) {
 
+        }
     }
 
     public void start() throws InterruptedException {
         myKeyboard();
         // loop till player or enemy is dead
-        while (!enemy.isDead() && !player.isDead()) {
+         // end of turns, loop ends if there is a winner
+        // TODO Screen.gameMessage("Winner: " + winner);
+        GameCharacter winner = enemy; // TODO: Show results in text
+
+    }
 
 
+    private void turn(Direction desiredDirection) throws InterruptedException {
+         {
             // Player turn
-
-            // Listen to keyboard
-
-            // TODO Screen.gameMessage("No can do. Use arrow keys to move your character.");
-            // Screen.gameMessage("No can do. Use arrow keys to move your character.");
-            // TODO Back to keyboard
-
-
             // Checking if keystroke translates into possible move
             if (!player.isDirectionPossible(desiredDirection)) {
-                desiredDirection = null;
+                System.out.println("no can do");
+                return;
             }
-            // Screen.gameMessage("You are not allowed to move in this direction.");
-            //   continue; // should go back into while loop // TODO back to keyboard
 
-            // If so
+            // If possible move
             player.move(desiredDirection);
             playerSprite.move(desiredDirection);
-            desiredDirection = null;
 
             // check if move results in fight because two characters are in same position
             //TODO check this for each enemy, currently just one enemy
@@ -126,28 +128,21 @@ public class Game implements KeyboardHandler {
             }
 
             // Wait a few hundred milliseconds
-            Thread.sleep(2000);
+            //Thread.sleep(2000);
 
             // Enemy turn
-
-            // moves
             enemy.moveTowardWithWalls(player.getCell());
             enemySprite.move(enemy.getDirection());
 
             // check if move results in fight because two characters are in same position
             if (enemy.getCell().equals(player.getCell())) {
 
-                // FIFO battle
-                // show battle animation // TODO: a few sprites that represent a battle e.g. flashing red
                 player.setDead();
                 playerSprite.deadAnimation();
-                GameCharacter winner = enemy; // TODO: Show results in text
 
             }
 
-        } // end of turns, loop ends if there is a winner
-        // TODO Screen.gameMessage("Winner: " + winner);
-
+        }
     }
 
     @Override

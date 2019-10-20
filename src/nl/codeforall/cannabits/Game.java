@@ -103,6 +103,7 @@ public class Game implements KeyboardHandler {
 
     private void turn(Direction desiredDirection) throws InterruptedException {
          {
+             System.out.println("executing turn");
             // Player turn
             // Checking if keystroke translates into possible move
             if (!player.isDirectionPossible(desiredDirection)) {
@@ -131,7 +132,7 @@ public class Game implements KeyboardHandler {
             //Thread.sleep(2000);
 
             // Enemy turn
-            enemy.moveTowardWithWalls(player.getCell());
+            enemy.moveTowards(player.getCell());
             enemySprite.move(enemy.getDirection());
 
             // check if move results in fight because two characters are in same position

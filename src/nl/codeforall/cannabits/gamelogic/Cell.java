@@ -7,7 +7,7 @@ public class Cell {
     private int row;
     private boolean passable;
 
-    public Cell(int col, int row){
+    public Cell(int col, int row) {
         this.col = col;
         this.row = row;
         passable = true;
@@ -32,19 +32,19 @@ public class Cell {
     //move one position up on field
 
     public void moveUp() {
-        this.col += col--;
+        this.row--;
     }
 
     public void moveDown() {
-        this.col += col++;
+        this.row++;
     }
 
     public void moveLeft() {
-        this.row -= row--;
+        this.col--;
     }
 
     public void moveRight() {
-        this.row -= row++;
+        this.col++;
     }
 
     private void generateRandCol() {

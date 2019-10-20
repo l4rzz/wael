@@ -9,8 +9,5 @@ public class Player extends GameCharacter {
         super(gameObjectType, grid);
     }
 
-    @Override
-    public void move(Direction direction) {
-        super.move(direction);
-    }
+
 }

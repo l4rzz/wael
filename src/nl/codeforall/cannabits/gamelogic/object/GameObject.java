@@ -21,8 +21,8 @@ public abstract class GameObject {
     //public void setStaticObjectPosition(){}
     //public void toggle occupied(){}
     public void setStartPosition(Grid grid){
-        int maxCols = grid.getCols() -1;
-        int maxRows = grid.getRows() -1;
+        int maxCols = grid.getCols();
+        int maxRows = grid.getRows();
         int setCol = (int)Math.floor(Math.random()*maxCols);
         int setRow = (int)Math.floor(Math.random()*maxRows);
         this.position = new Cell(setCol, setRow);

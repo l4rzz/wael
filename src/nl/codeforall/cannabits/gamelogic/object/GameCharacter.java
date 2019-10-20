@@ -16,27 +16,35 @@ public abstract class GameCharacter extends GameObject {
 
     public boolean isDirectionPossible(Direction direction) {
 
-        Cell futureCell = getCell();
+        Cell futureCell = new Cell(getCell().getCol(), getCell().getRow());
         switch (direction) {
             case UP:
                 futureCell.moveUp();
                 if (futureCell.isPassable()) {
                     return true;
+                }else {
+                    return false;
                 }
             case DOWN:
                 futureCell.moveDown();
                 if (futureCell.isPassable()){
                     return true;
+                }else {
+                    return false;
                 }
             case LEFT:
                 futureCell.moveLeft();
                 if (futureCell.isPassable()){
                     return true;
+                }else {
+                    return false;
                 }
             case RIGHT:
                 futureCell.moveRight();
                 if(futureCell.isPassable()){
                     return true;
+                }else {
+                    return false;
                 }
         }
         return false;
@@ -64,25 +72,32 @@ public abstract class GameCharacter extends GameObject {
                 if (isDirectionPossible(Direction.UP)) {
                     changeDirection(Direction.UP);
                     getCell().moveUp();
+                    break;
                 }
                 break;
             case DOWN:
                 if (isDirectionPossible(Direction.DOWN)) {
                     changeDirection(Direction.DOWN);
                     getCell().moveDown();
+                    break;
                 }
                 break;
             case LEFT:
                 if (isDirectionPossible(Direction.LEFT)) {
                     changeDirection(Direction.LEFT);
                     getCell().moveLeft();
+                    break;
                 }
                 break;
             case RIGHT:
                 if (isDirectionPossible(Direction.RIGHT)) {
                     changeDirection(Direction.RIGHT);
                     getCell().moveRight();
+                    break;
                 }
+                break;
+            default:
+                System.out.println("No direction found");
                 break;
         }
     }

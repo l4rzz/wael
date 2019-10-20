@@ -117,7 +117,7 @@ public class Game implements KeyboardHandler {
 
             // check if move results in fight because two characters are in same position
             //TODO check this for each enemy, currently just one enemy
-            if (player.getCell().equals(enemy.getCell())) {
+            if (player.getCell().compare(enemy.getCell())) {
 
                 // FIFO battle (gamelogic)
                 enemy.setDead();
@@ -125,18 +125,18 @@ public class Game implements KeyboardHandler {
 
                 // TODO: ONLY WITH MULTIPLE ENEMIES: check remaining number of enemies
                 GameCharacter winner = player;
-
+                return;
             }
 
             // Wait a few hundred milliseconds
-            //Thread.sleep(2000);
+            //Thread.sleep(1000);
 
             // Enemy turn
             enemy.moveTowards(player.getCell());
             enemySprite.move(enemy.getDirection());
 
             // check if move results in fight because two characters are in same position
-            if (enemy.getCell().equals(player.getCell())) {
+            if (enemy.getCell().compare(player.getCell())) {
 
                 player.setDead();
                 playerSprite.deadAnimation();

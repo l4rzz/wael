@@ -9,6 +9,7 @@ public abstract class GameCharacter extends GameObject {
     private Direction direction;
     private boolean dead;
 
+
     public GameCharacter(GameObjectType gameObjectType, Grid grid) {
         super(gameObjectType, grid);
         this.direction = Direction.generateRandom();
@@ -20,28 +21,28 @@ public abstract class GameCharacter extends GameObject {
         switch (direction) {
             case UP:
                 futureCell.moveUp();
-                if (futureCell.isPassable()) {
+                if (futureCell.getRow() > 0 && futureCell.isPassable()) {
                     return true;
                 }else {
                     return false;
                 }
             case DOWN:
                 futureCell.moveDown();
-                if (futureCell.isPassable()){
+                if (futureCell.getRow() < getGrid().getRows() && futureCell.isPassable()){
                     return true;
                 }else {
                     return false;
                 }
             case LEFT:
                 futureCell.moveLeft();
-                if (futureCell.isPassable()){
+                if (futureCell.getCol() > 0 && futureCell.isPassable()){
                     return true;
                 }else {
                     return false;
                 }
             case RIGHT:
                 futureCell.moveRight();
-                if(futureCell.isPassable()){
+                if(futureCell.getCol() < getGrid().getCols() && futureCell.isPassable()){
                     return true;
                 }else {
                     return false;

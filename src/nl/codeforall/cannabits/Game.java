@@ -43,7 +43,6 @@ public class Game implements KeyboardHandler {
     public void myKeyboard() {
         Keyboard keyboard = new Keyboard(this);
 
-
         KeyboardEvent keyUp = new KeyboardEvent();
         keyUp.setKey(KeyboardEvent.KEY_UP);
         keyUp.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
@@ -117,7 +116,7 @@ public class Game implements KeyboardHandler {
 
             // check if move results in fight because two characters are in same position
             //TODO check this for each enemy, currently just one enemy
-            if (player.getCell().compare(enemy.getCell())) {
+            if (player.getCell().compareCells(enemy.getCell())) {
 
                 // FIFO battle (gamelogic)
                 enemy.setDead();
@@ -136,7 +135,7 @@ public class Game implements KeyboardHandler {
             enemySprite.move(enemy.getDirection());
 
             // check if move results in fight because two characters are in same position
-            if (enemy.getCell().compare(player.getCell())) {
+            if (enemy.getCell().compareCells(player.getCell())) {
 
                 player.setDead();
                 playerSprite.deadAnimation();

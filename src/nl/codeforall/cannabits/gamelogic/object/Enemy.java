@@ -9,57 +9,60 @@ public class Enemy extends GameCharacter {
         super(gameObjectType);
     }
 
-    public void moveTowardWithWalls(Cell cell, Wall[] walls) {
-        /*
-         * Which direction can you go?
-         * Which directions get the enemy closer to the player
-         * if that direction is possible
-         *  go into that direction
-         * */
+    public void moveTowardWithWalls(Cell cell) {
 
         // compare columns
         int colDifference = cell.getCols() - getCell().getCols();
         // compare rows
         int rowDifference = cell.getRows() - getCell().getRows();
+        Direction[] directionOrder = new Direction[2];
 
-        boolean moved = false;
-        if (Math.abs(colDifference) > Math.abs(rowDifference)) {
-            if (colDifference < 0) {
-                //go right
-                if (isDirectionPossible(Direction.RIGHT, walls)) {
-                    changeDirection(Direction.RIGHT);
-                    cell.moveRight();
-                    return;
-                }
-                if (isDirectionPossible(Direction.LEFT, walls)) {
-                    changeDirection(Direction.LEFT);
-                    cell.moveLeft();
-                    return;
-                }
+        //order in which the directions are checked
+        int horizontalOrder;
+        int verticalOrder;
 
-            }
-            if (rowDifference < 0) {
-                //go down
-                if (isDirectionPossible(Direction.DOWN, walls)) {
-                    changeDirection(Direction.DOWN);
-                    cell.moveDown();
-                    return;
-                }
+        //assign movement order
+        if(Math.abs(colDifference) > Math.abs(rowDifference)){
+            horizontalOrder = 0;
+            verticalOrder = 1;
 
-                if (isDirectionPossible(Direction.UP, walls)) {
-                    changeDirection(Direction.UP);
-                    cell.moveUp();
-                    return;
-                }
+        }else {
+            horizontalOrder = 1;
+            verticalOrder = 0;
+
+        }
+
+        //assign directions
+        if(colDifference < 0){
+            //go right
+            directionOrder[horizontalOrder] = Direction.RIGHT;
+        }else{
+            //go left
+            directionOrder[horizontalOrder] = Direction.LEFT;
+        }
+
+        if(rowDifference < 0){
+            // go down
+            directionOrder[verticalOrder] = Direction.UP;
+        }else {
+            // go up
+            directionOrder[verticalOrder] = Direction.DOWN;
+        }
+
+        //move to the first direction if possible,if it's not possible. Try the next
+        for(int i = 0; i < directionOrder.length; i++){
+            if(isDirectionPossible(directionOrder[i])){
+                move(directionOrder[i]);
             }
         }
+
+
+
+
     }
 
 
-    @Override
-    public boolean isDirectionPossible(Direction direction, Wall[] walls) {
-        return false;
-    }
+
 
     @Override
     public void move(Direction direction) {

@@ -1,5 +1,6 @@
 package nl.codeforall.cannabits.gamelogic.object;
 
+import nl.codeforall.cannabits.gamelogic.Cell;
 import nl.codeforall.cannabits.gamelogic.Direction;
 import nl.codeforall.cannabits.gamelogic.Grid;
 import nl.codeforall.cannabits.gamelogic.Moveable;
@@ -13,32 +14,39 @@ public abstract class GameCharacter extends GameObject implements Moveable {
         super(gameObjectType);
     }
 
+    public boolean isDirectionPossible(Direction direction) {
 
-    @Override
-    public boolean isDirectionPossible(Direction direction, Wall[] walls) {
-        int totalColumns = getGrid().getCols() -1;
-        int totalRows = getGrid().getRows() -1;
-        int currentCol = getCell().getCols();
-        int currentRow = getCell().getRows();
-
-        switch (direction){
+        Cell futureCell = new Cell();
+        switch (direction) {
             case UP:
-                return currentRow <= totalRows;
+                futureCell.moveUp();
+                if (futureCell.isAvailable()) {
+                    return true;
+                }
             case DOWN:
-                return currentRow >= totalRows;
+                futureCell.moveDown();
+                if (futureCell.isAvailable()){
+                    return true;
+                }
             case LEFT:
-                return currentCol <= totalColumns;
+                futureCell.moveLeft();
+                if (futureCell.isAvailable()){
+                    return true;
+                }
             case RIGHT:
-                return currentCol >= totalColumns;
+                futureCell.moveRight();
+                if(futureCell.isAvailable()){
+                    return true;
+                }
         }
-        return true;
+        return false;
     }
 
-    protected void changeDirection(Direction direction){
+    protected void changeDirection(Direction direction) {
         this.direction = direction;
     }
 
-    public boolean isDead(){
+    public boolean isDead() {
         return dead;
     }
 }

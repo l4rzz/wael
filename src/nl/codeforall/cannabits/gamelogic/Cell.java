@@ -60,8 +60,9 @@ public class Cell {
             generateRandRow();
         }
     }
-    public boolean compare(Cell other){
-        if (col==other.getCol() && row == getRow()){
+
+    public boolean compareCells(Cell other){
+        if (row == other.getRow() && col == other.getCol()) {
             return true;
         }
         return false;

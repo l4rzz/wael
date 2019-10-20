@@ -42,7 +42,7 @@ public abstract class GameCharacter extends GameObject {
                 }
             case RIGHT:
                 futureCell.moveRight();
-                if(futureCell.getCol() < getGrid().getCols() && getGrid().isPassable(this.getCell().getCol()+1, this.getCell().getCol())){
+                if(futureCell.getCol() < getGrid().getCols() && getGrid().isPassable(this.getCell().getCol()+1, this.getCell().getRow())){
                     return true;
                 }else {
                     return false;

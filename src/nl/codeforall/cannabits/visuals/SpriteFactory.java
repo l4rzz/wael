@@ -11,6 +11,7 @@ import nl.codeforall.cannabits.visuals.characterVisuals.EnemySprite;
 import nl.codeforall.cannabits.visuals.characterVisuals.PlayerSprite;
 import nl.codeforall.cannabits.visuals.characterVisuals.Sprite;
 import nl.codeforall.cannabits.visuals.characterVisuals.WallSprite;
+import nl.codeforall.cannabits.gamelogic.object.Wall;
 
 public class SpriteFactory {
 
@@ -21,6 +22,8 @@ public class SpriteFactory {
         GameObjectType objectType = object.getGameObjectType();
         if (object instanceof GameCharacter) {
             object =(GameCharacter) object;
+        } else {
+            object = (Wall) object;
         }
         switch (objectType) {
             case ENEMY:

@@ -7,6 +7,7 @@ import nl.codeforall.cannabits.gamelogic.object.*;
 import nl.codeforall.cannabits.visuals.Screen;
 import nl.codeforall.cannabits.visuals.SpriteFactory;
 import nl.codeforall.cannabits.visuals.characterVisuals.Sprite;
+import nl.codeforall.cannabits.visuals.characterVisuals.WallSprite;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -20,6 +21,7 @@ public class Game implements KeyboardHandler {
     private Wall[] walls;
     private Sprite playerSprite;
     private Sprite enemySprite;
+    private Sprite[] wallSprite;
     private Screen screen;
     private Keyboard keyboard = new Keyboard(this);
     private boolean upKey;
@@ -39,6 +41,7 @@ public class Game implements KeyboardHandler {
 
         // creation of GameObjects
         walls = new Wall[4];
+        wallSprite = new WallSprite[4];
         for(int i = 0; i < walls.length; i++){
             walls[i] = (Wall) ObjectFactory.createObject(GameObjectType.WALL, grid);
         }
@@ -46,6 +49,10 @@ public class Game implements KeyboardHandler {
         walls[1].setFinalPosition(6,10);
         walls[2].setFinalPosition(10,6);
         walls[3].setFinalPosition(10,10);
+
+        for (int i = 0; i < walls.length;i++){
+            wallSprite[i] = SpriteFactory.makeSprite(walls[i], screen);
+        }
 
 
         player = (Player) ObjectFactory.createObject(GameObjectType.PLAYER, grid);

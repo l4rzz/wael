@@ -52,7 +52,7 @@ public abstract class Sprite<T> {
     }
 
 
-    public void move(FieldDirection direction) throws InterruptedException {
+    public void move(Direction direction) throws InterruptedException {
         //TODO move
         int travelDistance = screen.getCellsize();
         switch(direction){

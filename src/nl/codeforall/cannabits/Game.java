@@ -6,22 +6,26 @@ import nl.codeforall.cannabits.gamelogic.Grid;
 import nl.codeforall.cannabits.gamelogic.object.*;
 import nl.codeforall.cannabits.visuals.Screen;
 import nl.codeforall.cannabits.visuals.SpriteFactory;
+import nl.codeforall.cannabits.visuals.characterVisuals.Sprite;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
-public class Game implements KeyboardHandler{
+public class Game implements KeyboardHandler {
 
     private Grid grid;
     private Player player;
     private Enemy enemy;
+    private Sprite playerSprite;
+    private Sprite enemySprite;
     private Screen screen;
 
     Direction desiredDirection = null;
-    public Game(){
+
+    public Game() {
         // create a grid and screen
-        grid = new Grid(16,16);
+        grid = new Grid(16, 16);
         screen = new Screen(grid);
         screen.show();
 
@@ -29,15 +33,14 @@ public class Game implements KeyboardHandler{
 
         // creation of GameObjects
         player = (Player) ObjectFactory.createObject(GameObjectType.PLAYER, grid);
-        SpriteFactory.makeSprite(player,screen);
+        playerSprite = SpriteFactory.makeSprite(player, screen);
         enemy = (Enemy) ObjectFactory.createObject(GameObjectType.ENEMY, grid);
-        SpriteFactory.makeSprite(enemy,screen);
+        enemySprite = SpriteFactory.makeSprite(enemy, screen);
 
-        myKeyboard();
 
     }
 
-    public void myKeyboard(){
+    public void myKeyboard() {
         Keyboard keyboard = new Keyboard(this);
 
 
@@ -62,9 +65,10 @@ public class Game implements KeyboardHandler{
         keyboard.addEventListener(keyRight);
 
     }
+
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
-        switch(keyboardEvent.getKey()) {
+        switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_UP:
                 desiredDirection = Direction.UP;
                 break;
@@ -78,106 +82,78 @@ public class Game implements KeyboardHandler{
                 desiredDirection = Direction.RIGHT;
                 break;
         }
+
     }
-    public void start(){
 
-
-
-        // Local vars
-        String keystroke = "";
-
-
+    public void start() throws InterruptedException {
+        myKeyboard();
         // loop till player or enemy is dead
-        while (!enemy.isDead() && !player.isDead()){
+        while (!enemy.isDead() && !player.isDead()) {
 
 
             // Player turn
 
             // Listen to keyboard
 
+            // TODO Screen.gameMessage("No can do. Use arrow keys to move your character.");
+            // Screen.gameMessage("No can do. Use arrow keys to move your character.");
+            // TODO Back to keyboard
 
-            // Save keystroke into desired move
-            keystroke = "&0123";
-            // TODO keystroke input and mapping
-            switch(keystroke) {
-                case "&0024;":
-                    desiredDirection = Direction.UP;
-                    break;
-                case "&0025;":
-                    desiredDirection = Direction.DOWN;
-                    break;
-                case "&0026;":
-                    desiredDirection = Direction.RIGHT;
-                    break;
-                case "&0027;":
-                    desiredDirection = Direction.LEFT;
-                    break;
-                default:
-                    // TODO Screen.gameMessage("No can do. Use arrow keys to move your character.");
-                    // Screen.gameMessage("No can do. Use arrow keys to move your character.");
-                    // TODO Back to keyboard
-
-            }
 
             // Checking if keystroke translates into possible move
-            //if (!player.isDirectionPossible(desiredDirection,)) {
-                // Screen.gameMessage("You are not allowed to move in this direction.");
-             //   continue; // should go back into while loop // TODO back to keyboard
-
+            if (!player.isDirectionPossible(desiredDirection)) {
+                desiredDirection = null;
             }
+            // Screen.gameMessage("You are not allowed to move in this direction.");
+            //   continue; // should go back into while loop // TODO back to keyboard
+
             // If so
             player.move(desiredDirection);
-            // TODO Show move on screen
-            // Screen.showNewPosition(player);
+            playerSprite.move(desiredDirection);
+            desiredDirection = null;
 
             // check if move results in fight because two characters are in same position
-            // check this for each enemy, currently just one enemy
-            if(player.getCell().equals(enemy.getCell())) {
+            //TODO check this for each enemy, currently just one enemy
+            if (player.getCell().equals(enemy.getCell())) {
 
                 // FIFO battle (gamelogic)
-                // enemy.setDead();
+                enemy.setDead();
+                enemySprite.deadAnimation();
 
                 // TODO: ONLY WITH MULTIPLE ENEMIES: check remaining number of enemies
                 GameCharacter winner = player;
 
-                // show battle animation // TODO: a few sprites that represent a battle e.g. flashing red
-
             }
 
             // Wait a few hundred milliseconds
-            // TODO find the waiting method.
+            Thread.sleep(2000);
 
             // Enemy turn
 
-            // moves in game logic
-            //enemy.moveToWard(player.getCell());
-            // TODO Show move on screen
-            // Screen.showNewPosition(player);
+            // moves
+            enemy.moveTowardWithWalls(player.getCell());
+            enemySprite.move(enemy.getDirection());
 
             // check if move results in fight because two characters are in same position
-            if(enemy.getCell().equals(player.getCell())) {
+            if (enemy.getCell().equals(player.getCell())) {
 
                 // FIFO battle
                 // show battle animation // TODO: a few sprites that represent a battle e.g. flashing red
-                // player.setDeath();
-                GameCharacter winner = enemy;
+                player.setDead();
+                playerSprite.deadAnimation();
+                GameCharacter winner = enemy; // TODO: Show results in text
 
             }
-
-
-            //else {
-
-            //screen.showNewPosition(enemy);
 
         } // end of turns, loop ends if there is a winner
         // TODO Screen.gameMessage("Winner: " + winner);
 
-
-
+    }
 
     @Override
     public void keyReleased(KeyboardEvent keyboardEvent) {
 
     }
 }
+
 

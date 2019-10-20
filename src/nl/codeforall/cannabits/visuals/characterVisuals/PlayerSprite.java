@@ -26,7 +26,7 @@ public class PlayerSprite extends Sprite{
         sprite.delete();
     }
 
-    public void move(FieldDirection direction) throws InterruptedException {
+    public void move(Direction direction) throws InterruptedException {
         int travelDistance = getScreen().getCellsize();
         switch(direction){
 

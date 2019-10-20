@@ -54,11 +54,9 @@ public class Enemy extends GameCharacter {
         for(int i = 0; i < directionOrder.length; i++){
             if(isDirectionPossible(directionOrder[i])){
                 move(directionOrder[i]);
+                break;
             }
         }
-
-
-
 
     }
 
@@ -67,7 +65,7 @@ public class Enemy extends GameCharacter {
 
     @Override
     public void move(Direction direction) {
-
+        super.move(direction);
     }
 }
 

@@ -3,9 +3,8 @@ package nl.codeforall.cannabits.gamelogic.object;
 import nl.codeforall.cannabits.gamelogic.Cell;
 import nl.codeforall.cannabits.gamelogic.Direction;
 import nl.codeforall.cannabits.gamelogic.Grid;
-import nl.codeforall.cannabits.gamelogic.Moveable;
 
-public abstract class GameCharacter extends GameObject implements Moveable {
+public abstract class GameCharacter extends GameObject {
 
     private Direction direction;
     private boolean dead;
@@ -53,5 +52,38 @@ public abstract class GameCharacter extends GameObject implements Moveable {
 
     public boolean isDead() {
         return dead;
+    }
+
+    public void setDead(){
+        this.dead = true;
+    }
+
+    public void move(Direction direction) {
+        switch (direction) {
+            case UP:
+                if (isDirectionPossible(Direction.UP)) {
+                    changeDirection(Direction.UP);
+                    getCell().moveUp();
+                }
+                break;
+            case DOWN:
+                if (isDirectionPossible(Direction.DOWN)) {
+                    changeDirection(Direction.DOWN);
+                    getCell().moveDown();
+                }
+                break;
+            case LEFT:
+                if (isDirectionPossible(Direction.LEFT)) {
+                    changeDirection(Direction.LEFT);
+                    getCell().moveLeft();
+                }
+                break;
+            case RIGHT:
+                if (isDirectionPossible(Direction.RIGHT)) {
+                    changeDirection(Direction.RIGHT);
+                    getCell().moveRight();
+                }
+                break;
+        }
     }
 }
